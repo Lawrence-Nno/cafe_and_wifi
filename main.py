@@ -6,6 +6,7 @@ from wtforms import SubmitField, StringField, RadioField, EmailField, TextAreaFi
 from wtforms.validators import input_required
 from flask_bootstrap import Bootstrap
 from werkzeug.middleware.proxy_fix import ProxyFix
+import os
 
 
 class HTTPMethodOverrideMiddleware(object):
@@ -44,9 +45,9 @@ Bootstrap(app)
 # Connects to Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cafes.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = "ANy-String!"
+app.secret_key = os.environ["SECRET_KEY"]
 db.init_app(app)
-api_key = "TopSecretAPIKey"
+api_key = os.environ["API_KEY"]
 
 
 # Cafe TABLE Configuration

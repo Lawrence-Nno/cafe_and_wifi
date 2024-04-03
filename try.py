@@ -1,3 +1,0 @@
-a = ""
-
-print(bool(a))
