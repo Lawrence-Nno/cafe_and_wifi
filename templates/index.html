@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--    Meta Tags-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!--    CSS Links-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <title>Cafe and Wifi</title>
+  {% import 'bootstrap/wtf.html' as wtf %}
+</head>
+<body>
+  <section id="home">
+    <nav class="navbar navbar-expand-lg nav-bar-color fixed-top" data-bs-theme="light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#home">Cafe and Wifi</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse nav-links" id="navbarNavAltMarkup">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#cafes">Cafes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#add">Add a Cafe</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{ url_for('about') }}">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#contact">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="containeer landing-page">
+      <img class="img-fluid" src="{{ url_for('static', filename='images/home.jpg') }}" alt="Image of a Cafe Space">
+      <div class="cafewifi">
+        <h1>Cafe and Wifi London</h1>
+        <h4>List of cafes with work friendly environment.</h4>
+      </div>
+      <div class="scroll-down">
+        <a href="#cafes" class="scroll-text">Scroll Down<br>&#8595;</a>
+      </div>
+    </div>
+  </section>
+  <section id="cafes">
+    <div class="container-fluid">
+      <h1 class="text-center cafe_list">Cafe List</h1>
+      <div class="table-div text-center">
+        {% for message in get_flashed_messages()  %}
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+        <table class="table table-responsive table-striped table-hover table-bordered border-dark">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">Location</th>
+            <th scope="col">Seats</th>
+            <th scope="col">Coffee Price</th>
+            <th scope="col">Toilets</th>
+            <th scope="col">Sockets</th>
+            <th scope="col">Wifi</th>
+            <th scope="col">Allow Calls?</th>
+            <th scope="col">Map</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider border-top-color">
+          {% for num, cafe in cafes: %}
+          <tr>
+            <th scope="row">{{ num }}</th>
+            <td><div class="cafe_image"><img src="{{ cafe.img_url }}"></div></td>
+            <td>{{ cafe.name }}</td>
+            <td>{{ cafe.location }}</td>
+            <td>{{ cafe.seats }}</td>
+            <td>{{ cafe.coffee_price }}</td>
+            <td>{{ cafe.has_toilet }}</td>
+            <td>{{ cafe.has_sockets }}</td>
+            <td>{{ cafe.has_wifi }}</td>
+            <td>{{ cafe.can_take_calls }}</td>
+            <td><a class="btn btn-outline-warning" href="{{ cafe.map_url }}">Direction</a></td>
+            <td><a class="btn btn-outline-warning" href="{{ url_for('update_cafe', cafe_id=cafe.id) }}">Edit info</a></td>
+            <td><a class="btn btn-outline-warning" href="{{ url_for('delete', cafe_id=cafe.id) }}">Delete</a></td></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <section id="add">
+    <div class="add-page">
+      <img class="img-fluid" src="{{ url_for('static', filename='images/add.webp') }}" alt="Image of a Cafe Space">
+      <div class="container-fluid add-div">
+       <div class="container-fluid">
+         <h1 class="text-center add_a_cafe">Add a Cafe</h1>
+          <div class="mb-2 form-div">
+            <h5 class="text-center">Do you have any cafe to add🤔? Please use the form below👇</h5>
+            <form method="post" class="form-text">
+              {{ form.hidden_tag() }}
+              <div class="form-floating mb-3">{{ form.name }} {{ form.name.label }}</div>
+              <div class="form-floating mb-3">{{ form.location }} {{ form.location.label }}</div>
+              <div class="form-floating mb-3">{{ form.seats }} {{ form.seats.label }}</div>
+              <div class="form-floating mb-3">{{ form.coffee_price }} {{ form.coffee_price.label }}</div>
+              <div class="form-floating mb-3">{{ form.map_url }} {{ form.map_url.label }}</div>
+              <div class="form-floating mb-3">{{ form.img_url }} {{ form.img_url.label }}</div>
+              <div class="row">
+                {% for subfield in form.has_toilet %}
+                  <div class="form-check radio-div col">{{ subfield }} {{ subfield.label }}</div>
+                {% endfor %}
+              </div>
+              <div class="row">
+                {% for subfield in form.has_sockets %}
+                  <div class="form-check radio-div col">{{ subfield }} {{ subfield.label }}</div>
+                {% endfor %}
+              </div>
+              <div class="row">
+                {% for subfield in form.has_wifi %}
+                  <div class="form-check radio-div col">{{ subfield }} {{ subfield.label }}</div>
+                {% endfor %}
+              </div>
+              <div class="row">
+                {% for subfield in form.can_take_calls %}
+                  <div class="form-check radio-div col">{{ subfield }} {{ subfield.label }}</div>
+                {% endfor %}
+              </div>
+              <div class="d-grid gap-2 col-6 mx-auto">
+                {{ form.submit }}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="contact">
+    <div class="contact-page">
+      <div class="container-fluid text-center contact-container">
+        <h1>Contact Us</h1>
+        <div class="row">
+          <div class="col">
+            <h4>Email</h4>
+            cafewifi@london.com
+            <br>
+            <br>
+            <h4>Mobile</h4>
+            +44-9039482734
+            <br>
+            <br>
+            <h4>Address</h4>
+            No. 2 Billgate Street,<br>
+            Carrington London,<br>
+            England, United Kingdom.
+            <br>
+            <br>
+            <div class="contact_icons mx-auto">
+              <a href="http://www.linkedin.com/in/lawrence-nno"><img src="{{ url_for('static', filename='images/linkedin.png') }}"></a>
+              <a href="https://twitter.com/lawrence_nno"><img src="{{ url_for('static', filename='images/twitter3.png') }}"></a>
+              <a href="https://github.com/Lawrence-Nno"><img src="{{ url_for('static', filename='images/github.png') }}"></a>
+            </div>
+          </div>
+          <div class="col">
+            <form method="POST" class="contact-form-color">
+              {{ contact_form.hidden_tag() }}
+              <div class="form-floating mb-2 form-width mx-auto">
+                {{ contact_form.name }} {{ contact_form.name.label }}
+              </div>
+              <div class="form-floating mb-2 form-width mx-auto">
+                {{ contact_form.email }} {{ contact_form.email.label }}
+              </div>
+              <div class="form-floating mb-2 form-width mx-auto">
+                {{ contact_form.subject }} {{ contact_form.subject.label }}
+              </div>
+              <div class="form-floating mb-2">
+                {{ contact_form.body() }}
+              </div>
+              <div class="d-grid gap-2 col-6 mx-auto">
+                {{ contact_form.submit }}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="footer">
+    <div class="footer text-center">
+      &copy;<a href="https://lawrence-nno.online" class="footer_link">Lawrence Nno</a> | Cafe and Wifi London | All rights reserved
+    </div>
+  </section>
+<!--JavaScript Links-->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='style/style.js') }}"></script>
+</body>
+</html>
