@@ -7,6 +7,8 @@ from wtforms.validators import input_required
 from flask_bootstrap import Bootstrap
 from werkzeug.middleware.proxy_fix import ProxyFix
 import os
+from datetime import datetime
+from flask_mail import Mail, Message
 
 
 class HTTPMethodOverrideMiddleware(object):
@@ -45,9 +47,21 @@ Bootstrap(app)
 # Connects to Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cafes.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = os.environ["SECRET_KEY"]
+app.secret_key = os.getenv('SECRET_KEY', 'ANy-String!')
 db.init_app(app)
-api_key = os.environ["API_KEY"]
+api_key = os.getenv('API_KEY', 'TopSecretAPIKey')
+
+app.config['MAIL_SERVER'] = os.environ["MAIL_SERVER"]
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = os.environ["EMAIL"]
+app.config['MAIL_PASSWORD'] = os.environ["PWD"]
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+mail = Mail(app)
+
+current_time = datetime.now()
+year = current_time.strftime("%Y")
 
 
 # Cafe TABLE Configuration
@@ -79,7 +93,7 @@ class AddForm(FlaskForm):
     seats = StringField(label='Number of Seats', validators=[input_required()], render_kw={"placeholder": "Number of Seats", "class": "form-control"})
     has_toilet = RadioField(choices=[('True', "Has a toilet"), ('', "Has no toilet")], validators=[input_required()], render_kw={"class": "form-check-input"})
     has_wifi = RadioField(choices=[('True', "Has a Wifi"), ('', "Has no Wifi")], validators=[input_required()], render_kw={"class": "form-check-input"})
-    has_sockets = RadioField(choices=[('True', "Has enough sockets"), ('', "Not enough sockets")], validators=[input_required()], render_kw={"class": "form-check-input"})
+    has_sockets = RadioField(choices=[('True', "Enough sockets"), ('', "Few sockets")], validators=[input_required()], render_kw={"class": "form-check-input"})
     can_take_calls = RadioField(choices=[('True', "Can take calls"), ('', "Can't take calls")], validators=[input_required()], render_kw={"class": "form-check-input"})
     coffee_price = StringField(label='Price of Coffee', validators=[input_required()], render_kw={"placeholder": "Coffee Price", "class": "form-control"})
     submit = SubmitField(label="Add Cafe", render_kw={"class": "btn btn-outline-warning"})
@@ -95,7 +109,7 @@ class ContactForm(FlaskForm):
     name = StringField(label="Your Name", validators=[input_required()], render_kw={"placeholder": "Your Name", "class": "form-control"})
     email = EmailField(label="Your Email", validators=[input_required()], render_kw={"placeholder": "Your Email", "class": "form-control"})
     subject = StringField(label="Subject", validators=[input_required()], render_kw={"placeholder": "Subject", "class": "form-control"})
-    body = TextAreaField(label="Your Message here...", validators=[input_required()], render_kw={"placeholder": "Your message here...", "class": "form-controlo textarea"})
+    body = TextAreaField(label="Your Message here...", validators=[input_required()], render_kw={"placeholder": "Your message here...", "class": "form-control textarea"})
     submit = SubmitField(label="Send", render_kw={"class": "btn btn-outline-warning"})
 
 
@@ -123,7 +137,7 @@ def index():
         db.session.commit()
         flash("You successfully added a new cafe", 'success')
         return redirect(url_for("index") + "#cafes")
-    return render_template("index.html", cafes=indexed_cafes, form=form, contact_form=contact_form)
+    return render_template("index.html", cafes=indexed_cafes, form=form, contact_form=contact_form, year=year)
 
 
 @app.route('/edit/<cafe_id>', methods=["GET", "POST", "PUT"])
@@ -157,7 +171,7 @@ def update_cafe(cafe_id):
             else:
                 flash(f"Couldn't edit {cafe.name} at this time")
             return redirect(url_for("index") + "#cafes")
-        return render_template("edit.html", form=edit_form, cafe=cafe)
+        return render_template("edit.html", form=edit_form, cafe=cafe, year=year)
     else:
         return redirect(url_for("index"))
 
@@ -178,24 +192,34 @@ def delete(cafe_id):
                     flash(f"You have successfully removed {cafe.name}", "success")
                     return redirect(url_for("index") + "#cafes")
                 else:
-                    flash(f"Sorry, Operation unsuccessful, couldn't remove {cafe.name}")
+                    flash(f"Wrong delete-key, couldn't remove {cafe.name}")
                     return redirect(url_for("index") + "#cafes")
             else:
-                flash("Method not Put or Delete i.e not allowed", "failure")
+                flash("Method not allowed", "failure")
                 return redirect(url_for("index") + "#cafes")
-        # else:
-        #     flash("Request method not POST", "failure")
-        #     return redirect(url_for("index") + "#cafes")
-    # else:
-    #     flash("That cafe doesn't exist", 'failure')
-    #     return redirect(url_for("index") + "#cafes")
 
-    return render_template("delete.html", cafes=cafes, delete_form=delete_form)
+    return render_template("delete.html", cafes=cafes, delete_form=delete_form, year=year)
+
+
+@app.route('/#contact', methods=["POST"])
+def contact():
+    form = ContactForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        email = form.email.data
+        subject = "CafeandWifi " + form.subject.data
+        body = form.body.data
+
+        msg = Message(subject, sender=os.environ["EMAIL"], recipients=["lawrence.nno@gmail.com"])
+        msg.body = f"Name: {name}\n Email: {email}\n content: {body}"
+        mail.send(msg)
+        flash("Message sent", "success")
+        return redirect(url_for("index") + '#contact')
 
 
 @app.route('/about')
 def about():
-    return render_template("about.html")
+    return render_template("about.html", year=year)
 
 
 if __name__ == '__main__':

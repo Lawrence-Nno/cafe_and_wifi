@@ -4,50 +4,50 @@
 <!--    Meta Tags-->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 <!--    CSS Links-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <title>Cafe and Wifi</title>
   {% import 'bootstrap/wtf.html' as wtf %}
 </head>
 <body>
-  <section id="home">
-    <nav class="navbar navbar-expand-lg nav-bar-color fixed-top" data-bs-theme="light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#home">Cafe and Wifi</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse nav-links" id="navbarNavAltMarkup">
-          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#home">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#cafes">Cafes</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#add">Add a Cafe</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{ url_for('about') }}">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#contact">Contact Us</a>
-            </li>
-          </ul>
-        </div>
+  <nav class="navbar navbar-expand-lg nav-bar-color sticky-top" data-bs-theme="light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#home">Cafe and Wifi</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse nav-links" id="navbarNavAltMarkup">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#cafes">Cafes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#add">Add a Cafe</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ url_for('about') }}">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#contact">Contact Us</a>
+          </li>
+        </ul>
       </div>
-    </nav>
+    </div>
+  </nav>
+  <main>
+    <section id="home">
     <div class="containeer landing-page">
       <img class="img-fluid" src="{{ url_for('static', filename='images/home.jpg') }}" alt="Image of a Cafe Space">
       <div class="cafewifi">
-        <h1>Cafe and Wifi London</h1>
-        <h4>List of cafes with work friendly environment.</h4>
-      </div>
-      <div class="scroll-down">
-        <a href="#cafes" class="scroll-text">Scroll Down<br>&#8595;</a>
+        <h1 class="cafe-landing">Cafe and Wifi Spaces</h1>
+        <h4 class="list-of-cafe">List of beautiful cafes with work friendly environment.</h4>
       </div>
     </div>
   </section>
@@ -102,12 +102,12 @@
   </section>
   <section id="add">
     <div class="add-page">
-      <img class="img-fluid" src="{{ url_for('static', filename='images/add.webp') }}" alt="Image of a Cafe Space">
+      <img class="img-fluid" src="{{ url_for('static', filename='images/add.jpg') }}" alt="Image of a Cafe Space">
       <div class="container-fluid add-div">
        <div class="container-fluid">
          <h1 class="text-center add_a_cafe">Add a Cafe</h1>
           <div class="mb-2 form-div">
-            <h5 class="text-center">Do you have any cafe to add🤔? Please use the form below👇</h5>
+            <h6 class="text-center do-you-know">Do you know any cool cafe we are yet to add? Please use the below form to add.</h6>
             <form method="post" class="form-text">
               {{ form.hidden_tag() }}
               <div class="form-floating mb-3">{{ form.name }} {{ form.name.label }}</div>
@@ -144,46 +144,61 @@
         </div>
       </div>
     </div>
+     <div class="leaf">
+       <div><img src="{{ url_for('static', filename='images/leaf1.png') }}" height="75px" width="75px"></div>
+       <div><img src="{{ url_for('static', filename='images/leaf2.png') }}" height="75px" width="75px"></div>
+       <div><img src="{{ url_for('static', filename='images/leaf3.png') }}" height="75px" width="75px" ></div>
+       <div><img  src="{{ url_for('static', filename='images/leaf4.png') }}" height="75px" width="75px"></div>
+       <div><img src="{{ url_for('static', filename='images/leaf5.png') }}" height="75px" width="75px"></div>
+       <div><img src="{{ url_for('static', filename='images/leaf6.png') }}" height="75px" width="75px"></div>
+     </div>
+
+     <div class="leaf leaf1">
+       <div><img src="{{ url_for('static', filename='images/leaf1.png') }}" height="75px" width="75px"></div>
+       <div><img src="{{ url_for('static', filename='images/leaf2.png') }}" height="75px" width="75px"></div>
+       <div><img src="{{ url_for('static', filename='images/leaf3.png') }}" height="75px" width="75px" ></div>
+       <div><img  src="{{ url_for('static', filename='images/leaf4.png') }}" height="75px" width="75px"></div>
+       <div><img src="{{ url_for('static', filename='images/leaf5.png') }}" height="75px" width="75px"></div>
+       <div><img src="{{ url_for('static', filename='images/leaf6.png') }}" height="75px" width="75px"></div>
+     </div>
+
+     <div class="leaf leaf2">
+       <div><img src="{{ url_for('static', filename='images/leaf1.png') }}" height="75px" width="75px"></div>
+       <div><img src="{{ url_for('static', filename='images/leaf2.png') }}" height="75px" width="75px"></div>
+       <div><img src="{{ url_for('static', filename='images/leaf3.png') }}" height="75px" width="75px" ></div>
+       <div><img  src="{{ url_for('static', filename='images/leaf4.png') }}" height="75px" width="75px"></div>
+       <div><img src="{{ url_for('static', filename='images/leaf5.png') }}" height="75px" width="75px"></div>
+       <div><img src="{{ url_for('static', filename='images/leaf6.png') }}" height="75px" width="75px"></div>
+     </div>
   </section>
   <section id="contact">
     <div class="contact-page">
       <div class="container-fluid text-center contact-container">
         <h1>Contact Us</h1>
         <div class="row">
-          <div class="col">
-            <h4>Email</h4>
-            cafewifi@london.com
-            <br>
-            <br>
-            <h4>Mobile</h4>
-            +44-9039482734
-            <br>
-            <br>
-            <h4>Address</h4>
-            No. 2 Billgate Street,<br>
-            Carrington London,<br>
-            England, United Kingdom.
-            <br>
-            <br>
-            <div class="contact_icons mx-auto">
-              <a href="http://www.linkedin.com/in/lawrence-nno"><img src="{{ url_for('static', filename='images/linkedin.png') }}"></a>
-              <a href="https://twitter.com/lawrence_nno"><img src="{{ url_for('static', filename='images/twitter3.png') }}"></a>
-              <a href="https://github.com/Lawrence-Nno"><img src="{{ url_for('static', filename='images/github.png') }}"></a>
+          <div class="col-9 mx-auto">
+            <div class="contact-email">
+              <h5>Email</h5>
+              cafewifi@lawrence-nno.online
             </div>
-          </div>
-          <div class="col">
-            <form method="POST" class="contact-form-color">
+            {% for message in get_flashed_messages()  %}
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+            <form method="POST" class="contact-form-color" action="{{ url_for('contact') }}">
               {{ contact_form.hidden_tag() }}
-              <div class="form-floating mb-2 form-width mx-auto">
-                {{ contact_form.name }} {{ contact_form.name.label }}
+              <div class="mb-3 form-width mx-auto">
+                {{ contact_form.name }}
               </div>
-              <div class="form-floating mb-2 form-width mx-auto">
-                {{ contact_form.email }} {{ contact_form.email.label }}
+              <div class="mb-3 form-width mx-auto">
+                {{ contact_form.email }}
               </div>
-              <div class="form-floating mb-2 form-width mx-auto">
-                {{ contact_form.subject }} {{ contact_form.subject.label }}
+              <div class="mb-3 form-width mx-auto">
+                {{ contact_form.subject }}
               </div>
-              <div class="form-floating mb-2">
+              <div class="mb-3">
                 {{ contact_form.body() }}
               </div>
               <div class="d-grid gap-2 col-6 mx-auto">
@@ -195,10 +210,16 @@
       </div>
     </div>
   </section>
+  </main>
   <section id="footer">
-    <div class="footer text-center">
-      &copy;<a href="https://lawrence-nno.online" class="footer_link">Lawrence Nno</a> | Cafe and Wifi London | All rights reserved
-    </div>
+    <footer class="footer text-center">
+      Copyright &copy; <a href="https://lawrence-nno.online" class="footer_link">Lawrence Nno</a>, {{ year }} | Cafe and Wifi
+      <div class="contact_icons mx-auto">
+        <a href="http://www.linkedin.com/in/lawrence-nno"><img src="{{ url_for('static', filename='images/linkedin.png') }}"></a>
+        <a href="https://twitter.com/lawrence_nno"><img src="{{ url_for('static', filename='images/twitter3.png') }}"></a>
+        <a href="https://github.com/Lawrence-Nno"><img src="{{ url_for('static', filename='images/github.png') }}"></a>
+      </div>
+    </footer>
   </section>
 <!--JavaScript Links-->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

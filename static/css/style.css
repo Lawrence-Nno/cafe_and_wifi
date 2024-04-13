@@ -1,5 +1,84 @@
+.roboto-thin {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.roboto-thin-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.roboto-light {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.roboto-light-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-regular-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.roboto-medium {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.roboto-medium-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.roboto-bold {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-bold-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.roboto-black {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.roboto-black-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
 body{
     background-color: black;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: "Roboto", sans-serif;
+}
+main{
+    flex-grow: 1;
 }
 .landing-page{
     position: relative;
@@ -18,21 +97,24 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.scroll-down {
-  position: absolute;
-  bottom: 5%;
-  right: 3%;
-  padding: 0.1rem 0.5rem;
-  background-color: rgba(0,0,0,0.5);
-  border-radius: 25px;
-}
-.scroll-text{
-    text-decoration: None;
-    color: #FFC94A;
-}
 h1{
     font-size: 6rem;
     color: #FFC94A;
+    font-family: "Courgette", cursive;
+}
+h2.text-center.edit-name {
+    font-size: 3rem;
+    color: #FFC94A;
+    font-family: "Courgette", cursive;
+}
+.cafe-landing{
+    font-size: 8rem;
+}
+h4,.list-of-cafe{
+    font-family: "Courgette", cursive;
+}
+.do-you-know{
+    font-family: "Courgette", cursive;
 }
 .nav-bar-color{
     background-color: #EEEEEE;
@@ -98,10 +180,10 @@ h1{
     padding-top: 1rem;
 }
 .add-page img{
-    height: 140vh;
+    height: 135vh;
     width: 100%;
     object-fit: cover;
-    opacity: 0.8;
+    opacity: 1;
 }
 .add-div{
     color: #FFC94A;
@@ -141,7 +223,6 @@ h1{
     color: #FFC94A;
     position: absolute;
     top: 1%;
-    left: 1%;
 }
 .popup-form {
     display: block;
@@ -184,11 +265,11 @@ h1{
 }
 .contact_icons{
     background-color: #FFC94A;
-    width: 50%;
+    display: inline-block;
 }
 .contact_icons img{
-    height: 2rem;
-    padding: 0 1rem;
+    height: 1.2rem;
+    padding: 0 0.5rem;
 }
 .form-width{
     width: 50%;
@@ -210,24 +291,43 @@ h1{
 .footer{
     background-color: #FFC94A;
     color: black;
-    padding: 2rem;
+    padding: 1rem;
     font-weight: 600;
+    font-size: 0.8rem;
 }
 .footer_link{
     text-decoration: None;
 }
-@media only screen and (max-width: 900px) {
+.contact-email{
+    margin-bottom: 1rem;
+}
+h5{
+    margin: 0;
+}
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #FFC94A;
+            opacity: 1; /* Firefox */
+}
+
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: #FFC94A;
+}
+
+.form-control::-ms-input-placeholder { /* Microsoft Edge */
+            color: #FFC94A;
+ }
+@media only screen and (max-width: 1100px) {
   .form-div {
     width: 100%;
   }
   .add-page img{
-    height: 150vh;
+    height: 50rem;
     width: 100%;
     object-fit: cover;
     opacity: 0.8;
 }
 .edit-page img{
-    height: 170vh;
+    height: 50rem;
     width: 100%;
     object-fit: cover;
     opacity: 0.8;
@@ -258,4 +358,163 @@ h1{
     border-bottom-width: var(--bs-border-width);
     box-shadow: inset 0 0 0 9999px var(--bs-table-bg-state,var(--bs-table-bg-type,var(--bs-table-accent-bg)));
 }
+}
+@media only screen and (max-width: 500px) {
+  .form-div {
+    width: 100%;
+  }
+  .add-page img{
+    height: 48rem;
+    width: 100%;
+    object-fit: cover;
+}
+.edit-page img{
+    height: 47rem;
+    width: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+}
+#cafes{
+    background-color: #FFFFFF;
+    font-size: 0.3rem;
+}
+.cafe_image img{
+    height: 4vh;
+    width: 100%;
+    object-fit: cover;
+}
+#cafes .btn{
+    font-size: 0.3rem;
+    padding: 0.1rem;
+}
+.table{
+    padding: 0.2rem;
+}
+h1{
+    font-size: 3rem;
+}
+.cafe-landing{
+    font-size: 5rem;
+}
+h2.text-center.edit-name {
+    font-size: 1.5rem;
+    color: #FFC94A;
+    font-family: "Courgette", cursive;
+}
+.radio-div{
+    font-size: 0.7rem;
+}
+.about_us h1{
+    font-size: 3rem;
+}
+.table>:not(caption)>*>* {
+    padding: .2rem .2rem;
+    color: var(--bs-table-color-state,var(--bs-table-color-type,var(--bs-table-color)));
+    background-color: var(--bs-table-bg);
+    border-bottom-width: var(--bs-border-width);
+    box-shadow: inset 0 0 0 9999px var(--bs-table-bg-state,var(--bs-table-bg-type,var(--bs-table-accent-bg)));
+}
+.textarea{
+    width: 100%;
+    height: 5rem;
+    border-radius: 10px;
+    color: black;
+}
+.form-width{
+    width: 100%;
+}
+.contact-email{
+    margin-bottom: 0.5rem;
+}
+.contact_icons{
+    background-color: #FFC94A;
+    width: 100%;
+}
+.contact_icons img{
+    height: 1.5rem;
+    padding: 0 0.5rem;
+}
+}
+
+
+
+.leaf{
+    position:absolute ;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+}
+.leaf div{
+position:absolute ;
+display:block ;
+}
+.leaf div:nth-child(1){
+    left:30%;
+    animation:fall 15s linear infinite ;
+    animation-delay:-2s;
+
+}
+.leaf div:nth-child(2){
+    left:65%;
+    animation:fall 15s linear infinite ;
+    animation-delay:-4s;
+}
+.leaf div:nth-child(3){
+    left:5%;
+    animation:fall 20s linear infinite ;
+    animation-delay:-7s;
+
+}
+.leaf div:nth-child(4){
+    left:50%;
+   animation:fall 18s linear infinite ;
+   animation-delay:-5s;
+}
+.leaf div:nth-child(5){
+    left:75%;
+    animation:fall 14s linear infinite ;
+    animation-delay:-5s;
+}
+.leaf div:nth-child(6){
+    left:20%;
+    animation:fall 16s linear infinite ;
+    animation-delay:-10s;
+}
+.leaf div:nth-child(7){
+    left:60%;
+    animation:fall 15s linear infinite ;
+    animation-delay:-4s;
+}
+
+@keyframes fall{
+    0%{
+        opacity:1;
+        top:-10%;
+        transform:translateX (20px) rotate(0deg);
+    }
+    20%{
+        opacity:0.8;
+        transform:translateX (-20px) rotate(45deg);
+    }
+    40%{
+
+        transform:translateX (-20px) rotate(90deg);
+    }
+    60%{
+
+       transform:translateX (-20px) rotate(135deg);
+    }
+    80%{
+
+        transform:translateX (-20px) rotate(180deg);
+    }
+    100%{
+
+        top:110%;
+        transform:translateX (-20px) rotate(225deg);
+    }
+    }
+.leaf1{
+    transform: rotateX(180deg);
 }
