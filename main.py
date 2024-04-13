@@ -47,9 +47,9 @@ Bootstrap(app)
 # Connects to Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cafes.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = os.getenv('SECRET_KEY', 'ANy-String!')
+app.secret_key = os.getenv('SECRET_KEY')
 db.init_app(app)
-api_key = os.getenv('API_KEY', 'TopSecretAPIKey')
+api_key = os.getenv('API_KEY')
 
 app.config['MAIL_SERVER'] = os.environ["MAIL_SERVER"]
 app.config['MAIL_PORT'] = 465
