@@ -47,14 +47,14 @@ Bootstrap(app)
 # Connects to Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cafes.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = os.getenv('SECRET_KEY', 'ANy-String!')
 db.init_app(app)
-api_key = os.getenv('API_KEY')
+api_key = os.getenv('API_KEY', 'TopSecretAPIKey')
 
-app.config['MAIL_SERVER'] = os.environ["MAIL_SERVER"]
+app.config['MAIL_SERVER'] = os.getenv("MAIL_SERVER", "smtp.mail.yahoo.com")
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = os.environ["EMAIL"]
-app.config['MAIL_PASSWORD'] = os.environ["PWD"]
+app.config['MAIL_USERNAME'] = os.getenv("EMAIL", "classiccream@yahoo.com")
+app.config['MAIL_PASSWORD'] = os.getenv("PWD","prvvnlftpzsckshu")
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
@@ -224,4 +224,4 @@ def about():
 
 if __name__ == '__main__':
     app.wsgi_app = ProxyFix(app.wsgi_app)
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
