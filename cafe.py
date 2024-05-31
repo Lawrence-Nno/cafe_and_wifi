@@ -51,10 +51,10 @@ app.secret_key = os.getenv('SECRET_KEY')
 db.init_app(app)
 api_key = os.getenv('API_KEY')
 
-app.config['MAIL_SERVER'] = os.getenv("MAIL_SERVER", "smtp.mail.yahoo.com")
+app.config['MAIL_SERVER'] = os.getenv("MAIL_SERVER")
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = os.getenv("EMAIL", "classiccream@yahoo.com")
-app.config['MAIL_PASSWORD'] = os.getenv("PWD","prvvnlftpzsckshu")
+app.config['MAIL_USERNAME'] = os.getenv("EMAIL")
+app.config['MAIL_PASSWORD'] = os.getenv("EMAIL_PWD",)
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
